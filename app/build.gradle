@@ -34,7 +34,10 @@ android {
 
 repositories {
     mavenCentral()
-    maven { url 'http://maven.getsimpl.com' }
+   maven { url 'http://maven.getsimpl.com' }
+   flatDir {
+     dir 'libs'
+   }
 }
 
 
@@ -56,8 +59,8 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.1.1'
     androidTestImplementation 'com.squareup.okhttp3:mockwebserver:3.13.1'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
-    if (System.getenv("CI") != null)
-       implementation files('libs/zeroClickSDK-release.jar')
+    if (System.getenv("ENV") != null)
+        implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     else
        implementation 'com.simpl.android:zeroClicksdk:1.0.25'
 }
