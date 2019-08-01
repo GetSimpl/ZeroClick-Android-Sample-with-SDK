@@ -20,7 +20,7 @@ android {
 
     buildTypes {
         debug {
-            minifyEnabled true
+            minifyEnabled false
         }
         release {
             defaultConfig {
@@ -45,7 +45,6 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'com.squareup.okhttp3:okhttp:3.13.1'
-    implementation 'com.simpl.android:zeroClicksdk:1.0.25'
     implementation 'com.jakewharton:butterknife:9.0.0-rc3'
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc3'
     testImplementation 'junit:junit:4.12'
@@ -57,4 +56,8 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.1.1'
     androidTestImplementation 'com.squareup.okhttp3:mockwebserver:3.13.1'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
+    if (System.getenv("CI") != null)
+       implementation files('libs/zeroClickSDK-release.jar')
+    else
+       implementation 'com.simpl.android:zeroClicksdk:1.0.25'
 }
