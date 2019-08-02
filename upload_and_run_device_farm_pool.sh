@@ -27,8 +27,8 @@ devicePools=`aws devicefarm list-device-pools --arn $projectArn | jq .devicePool
 devicePoolArn=`get_arn "$devicePools" "SDK Release Testing"`
 
 echo "============= CREATE UPLOAD ======================"
-appUpload=`aws devicefarm create-upload --project-arn $(echo $projectArn) --name app-debug.apk --type ANDROID_APP | jq '.upload'`
-testAppUpload=`aws devicefarm create-upload --project-arn $(echo $projectArn) --name app-debug-android-Test.apk --type INSTRUMENTATION_TEST_PACKAGE | jq '.upload'`
+appUpload=`aws devicefarm create-upload --project-arn $(echo $projectArn) --name app.apk --type ANDROID_APP | jq '.upload'`
+testAppUpload=`aws devicefarm create-upload --project-arn $(echo $projectArn) --name app-Test.apk --type INSTRUMENTATION_TEST_PACKAGE | jq '.upload'`
 
 appPreSignedUrl=`echo $appUpload | jq '.url'`
 appUploadArn=`echo $appUpload | jq '.arn' | sed -e 's/^"//' -e 's/"$//'`
@@ -40,14 +40,13 @@ curl -T app/build/outputs/apk/release/app-release-unsigned.apk "$(echo $appPreSi
 curl -T app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk "$(echo $testAppPreSignedUrl | sed -e 's/^"//' -e 's/"$//')"
 
 echo "============= RUN TESTS =========================="
-
 runArn=`aws devicefarm schedule-run --project-arn $projectArn --app-arn $appUploadArn --device-pool-arn $devicePoolArn --name SDK_IMPLEMENTATION_TESTS --test type=INSTRUMENTATION,testPackageArn=$testAppUploadArn | jq '.run.arn'  | sed -e 's/^"//' -e 's/"$//'`
 
 while true; do
     result=`aws devicefarm get-run --arn $runArn | jq '.run'`
-    if [ `echo $result | jq '.status'`=="COMPLETED" ]
+    if [ `echo $result | jq '.status'` == "COMPLETED" ]
     then
-        if [ `echo $result | jq '.result'` != "PASSED"]
+        if [ `echo $result | jq '.result'` != "PASSED" ]
         then
             echo "============= TESTS HAVE FAILED =============="
             exit 1
