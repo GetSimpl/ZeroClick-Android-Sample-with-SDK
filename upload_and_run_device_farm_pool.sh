@@ -50,7 +50,7 @@ while [ $status==false ]; do
     echo $result
     if [ `echo $result | jq '.status'`=="COMPLETED" ]
     then
-        if [ `echo $result | jq '.result` != "SUCCESS"]
+        if [ `echo $result | jq '.result` != "PASSED"]
         then
             echo "============= TESTS HAVE FAILED =============="
             exit 1
