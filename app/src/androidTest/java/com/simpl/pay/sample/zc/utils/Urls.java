@@ -1,7 +1,7 @@
 package com.simpl.pay.sample.zc.utils;
 
 public class Urls {
-    private static final boolean isSandbox = false;
+    private static final boolean isSandbox = true;
 
     private static final String BASE_URL_SANDBOX = "https://sandbox-api.getsimpl.com/api/v1";
     private static final String BASE_URL_STAGING = "https://staging-api.getsimpl.com/api/v1";

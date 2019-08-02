@@ -91,7 +91,7 @@ public class SimplZeroClickInstrumentedTest {
 
     @Test
     public void approvedUserLimitSpend() {
-        approvedUserLinking();
+       approvedUserLinking();
 
         new UserActions()
                 .proceedToCart();

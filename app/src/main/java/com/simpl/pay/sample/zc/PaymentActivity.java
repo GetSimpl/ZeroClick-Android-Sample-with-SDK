@@ -19,6 +19,7 @@ import com.simpl.android.zeroClickSdk.SimplUserApprovalListenerV2;
 import com.simpl.android.zeroClickSdk.SimplUserApprovalRequest;
 import com.simpl.android.zeroClickSdk.SimplZeroClickTokenAuthorization;
 import com.simpl.android.zeroClickSdk.SimplZeroClickTokenListener;
+
 import com.simpl.pay.sample.zc.utils.BaseApi;
 import com.simpl.pay.sample.zc.utils.Prefs;
 import com.simpl.pay.sample.zc.utils.Urls;
@@ -133,7 +134,7 @@ public class PaymentActivity extends AppCompatActivity {
             public void onSuccess(final boolean status, final String buttonText, final boolean showSimplIntroduction) {
                 if (status) {
                     // User is approved.
-                    //enable Simpl Button here
+                    // enable Simpl Button here
                     llSimplPay.setVisibility(View.VISIBLE);
                     tvStatus.setText("Status: Approval Call successful.");
                     tvSimplPay.setText("Link with simpl");
@@ -302,6 +303,8 @@ public class PaymentActivity extends AppCompatActivity {
 
                     }
                 });
+            else if (responseObject.getString("error_code").equals("zero_click_token_not_found"))
+                generateZCToken(email, phoneNo);
 
             //update the UI.
             String error_code = responseObject.getString("error_code");
