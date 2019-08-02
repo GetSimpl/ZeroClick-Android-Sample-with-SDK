@@ -36,7 +36,7 @@ testAppPreSignedUrl=`echo $testAppUpload | jq '.url'`
 testAppUploadArn=`echo $testAppUpload | jq '.arn'  | sed -e 's/^"//' -e 's/"$//'`
 
 echo "============= UPLOAD APK ========================="
-curl -T app/build/outputs/apk/debug/app-debug.apk "$(echo $appPreSignedUrl | sed -e 's/^"//' -e 's/"$//')"
+curl -T app/build/outputs/apk/release/app-debug-unsigned.apk "$(echo $appPreSignedUrl | sed -e 's/^"//' -e 's/"$//')"
 curl -T app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk "$(echo $testAppPreSignedUrl | sed -e 's/^"//' -e 's/"$//')"
 
 echo "============= RUN TESTS =========================="
