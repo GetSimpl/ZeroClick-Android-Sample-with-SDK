@@ -18,7 +18,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <meta-data
             android:name="com.simpl.android.sdk.merchant_id"
-            android:value="c44875b033615fd504b57accb5ff6305" />
+            android:value="e4a905492fc1ec16d8f2d25bfd9885c7" />
 
         <activity android:name=".UserActivity">
             <intent-filter>

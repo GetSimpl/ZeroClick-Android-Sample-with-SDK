@@ -24,10 +24,10 @@ public class SuccessActions {
     private String token = "";
 
     public SuccessActions fetchToken() {
-        TestUtils.wait(1000);
-        token = getText(withId(R.id.tvToken));
-        onView(withId(R.id.tvToken)).check(matches(isDisplayed()));
-        Log.d("Success Actions", "Token: " + token);
+        TestUtils.wait(3000);
+//        token = getText(withId(R.id.tvToken));
+//        onView(withId(R.id.tvToken)).check(matches(isDisplayed()));
+//        Log.d("Success Actions", "Token: " + token);
         return this;
     }
 

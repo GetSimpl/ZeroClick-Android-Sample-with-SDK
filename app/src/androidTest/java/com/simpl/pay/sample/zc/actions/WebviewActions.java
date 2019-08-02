@@ -20,7 +20,7 @@ public class WebviewActions {
     private String otp = "";
 
     public WebviewActions() {
-        TestUtils.wait(3000);
+        TestUtils.wait(5000);
     }
 
     public WebviewActions fetchVerificationId() {

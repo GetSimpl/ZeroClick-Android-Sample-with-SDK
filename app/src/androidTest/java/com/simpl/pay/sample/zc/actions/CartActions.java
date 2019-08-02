@@ -14,6 +14,7 @@ import static java.lang.String.format;
 public class CartActions {
 
     public CartActions adjustCartItems (int amount) {
+        TestUtils.wait(2000);
         int total = 20000;
 
         if (total > amount) {
