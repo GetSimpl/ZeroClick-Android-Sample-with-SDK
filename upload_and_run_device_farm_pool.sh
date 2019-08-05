@@ -40,17 +40,11 @@ curl -T app/build/outputs/apk/release/app-release-unsigned.apk "$(echo $appPreSi
 curl -T app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk "$(echo $testAppPreSignedUrl | sed -e 's/^"//' -e 's/"$//')"
 
 echo "============= RUN TESTS =========================="
-echo $projectArn
-echo ">>>PROJECT ARN"
-echo $devicePoolArn
-echo ">>>DEVICE POOL ARN"
-echo $testAppUploadArn
-echo ">>>TEST APP ARN"
 runArn=`aws devicefarm schedule-run --project-arn $projectArn --app-arn $appUploadArn --device-pool-arn $devicePoolArn --name SDK_IMPLEMENTATION_TESTS --test type=INSTRUMENTATION,testPackageArn=$testAppUploadArn | jq '.run.arn'  | sed -e 's/^"//' -e 's/"$//'`
 
 while true; do
     result=`aws devicefarm get-run --arn $runArn | jq '.run'`
-    echo `echo $result | jq '.status'`
+    echo `echo $result`
     if [ `echo $result | jq '.status'` == "\"COMPLETED\"" ]
     then
         if [ `echo $result | jq '.result'` != "\"PASSED\"" ]
