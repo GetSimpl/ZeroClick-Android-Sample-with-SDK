@@ -51,9 +51,9 @@ runArn=`aws devicefarm schedule-run --project-arn $projectArn --app-arn $appUplo
 while true; do
     result=`aws devicefarm get-run --arn $runArn | jq '.run'`
     echo `echo $result | jq '.status'`
-    if [ `echo $result | jq '.status'` == "COMPLETED" ]
+    if [ `echo $result | jq '.status'` == "\"COMPLETED\"" ]
     then
-        if [ `echo $result | jq '.result'` != "PASSED" ]
+        if [ `echo $result | jq '.result'` != "\"PASSED\"" ]
         then
             echo "============= TESTS HAVE FAILED =============="
             exit 1
