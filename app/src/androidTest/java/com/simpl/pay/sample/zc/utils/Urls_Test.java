@@ -1,11 +1,11 @@
 package com.simpl.pay.sample.zc.utils;
 
-public class Urls {
+public class Urls_Test {
     private static final boolean isSandbox = true;
 
     private static final String BASE_URL_SANDBOX = "https://sandbox-api.getsimpl.com/api/v1";
     private static final String BASE_URL_STAGING = "https://staging-api.getsimpl.com/api/v1";
-    private static final String BASE_URL_REMOTE_SERVER = "http://10.0.2.2:3000";
+    private static final String BASE_URL_REMOTE_SERVER = "https://sandbox-zero-click-sample.getsimpl.com";
 
     private static String getBaseURL() {
         return isSandbox ? BASE_URL_SANDBOX : BASE_URL_STAGING;

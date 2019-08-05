@@ -40,11 +40,8 @@ public class SimplZeroClickInstrumentedTest {
 
     @Before
     public void setup() throws Exception {
-        // reset zeroClickToken and fetch user
-        zeroClickToken = "";
         user = NetworkHelper.createUser(testName.getMethodName());
         Log.d("User", "Phone No:" + user.getPhoneNumber());
-        mUserActivityRule.getActivity().merchantId = user.getMerchantId();
     }
 
     @Test
@@ -101,7 +98,7 @@ public class SimplZeroClickInstrumentedTest {
                 .proceedToPayment();
 
         new PaymentActions()
-                .checkStatus(Status.ELIGIBILITY_FAIL);
+                .checkStatus(Status.NOT_ENOUGHT_CREDIT);
     }
 
     @Test

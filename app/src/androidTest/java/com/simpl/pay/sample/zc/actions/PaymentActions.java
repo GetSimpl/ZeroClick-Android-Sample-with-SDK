@@ -28,7 +28,6 @@ public class PaymentActions {
 
     public PaymentActions checkStatus(Status errEnum) {
         TestUtils.wait(2000);
-        onView(withId(R.id.llSimplPay)).check(matches(isDisplayed()));
         onView(withId(R.id.tvStatus)).check(matches(withText(getErrorStatus(errEnum))));
         return this;
     }

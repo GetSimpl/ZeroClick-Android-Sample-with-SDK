@@ -259,6 +259,7 @@ public class PaymentActivity extends AppCompatActivity {
                     try {
                         if (response.isSuccessful()) {
                             JSONObject res = new JSONObject(response.body().string());
+                            Log.i("JSON RESPONSE PAYMENT", res + "");
                             if (res.getBoolean("success")) {
                                 startActivity(new Intent(mContext, SuccessActivity.class));
                                 finish();
@@ -288,8 +289,8 @@ public class PaymentActivity extends AppCompatActivity {
         try {
             // If the Eligibility returns false, navigate to redirection URL.
             // This will allow user to pay his outstanding dues and on success callback, you can initiate the charge call on server.
-            if (responseObject.getString("redirection_url") != null && !responseObject.getString("redirection_url").equals("null"))
-                Simpl.getInstance().openRedirectionURL(PaymentActivity.this, responseObject.getString("redirection_url"),
+            if (responseObject.getString("redirect_url") != null && !responseObject.getString("redirect_url").equals("null"))
+                Simpl.getInstance().openRedirectionURL(PaymentActivity.this, responseObject.getString("redirect_url"),
                         new SimplUser(email, phoneNo)).execute(new SimplPaymentDueListener() {
                     @Override
                     public void onSuccess(String s) {
@@ -308,29 +309,34 @@ public class PaymentActivity extends AppCompatActivity {
 
             //update the UI.
             String error_code = responseObject.getString("error_code");
-            switch (error_code) {
-                case "pending_dues":
-                    tvStatus.setText("Status: You have a pending bill");
-                    tvStatus.setTextColor(getColor(R.color.colorRed));
-                    break;
-                case "unable_to_process":
-                    tvStatus.setText("Status: Transaction amount is greater than your credit limit");
-                    tvStatus.setTextColor(getColor(R.color.colorRed));
-                    break;
-                case "user_unauthorized":
-                    tvStatus.setText("Status: You have been blocked on simpl");
-                    tvStatus.setTextColor(getColor(R.color.colorRed));
-                    // As the user is blocked you can also delete user zeroClickToken in database
-                    break;
-                default:
-                    tvStatus.setText("Status: You don't have enough credit for this transaction");
-                    tvStatus.setTextColor(getColor(R.color.colorRed));
-                    break;
-            }
+            updateStatus(error_code);
         }catch (Exception exception) {
             Log.e("SIMPLSDK", "" + exception);
+            updateStatus("");
         }
 
+    }
+
+    private void updateStatus (String code){
+        switch (code) {
+            case "pending_dues":
+                tvStatus.setText("Status: You have a pending bill");
+                tvStatus.setTextColor(getColor(R.color.colorRed));
+                break;
+            case "unable_to_process":
+                tvStatus.setText("Status: Transaction amount is greater than your credit limit");
+                tvStatus.setTextColor(getColor(R.color.colorRed));
+                break;
+            case "user_unauthorized":
+                tvStatus.setText("Status: You have been blocked on simpl");
+                tvStatus.setTextColor(getColor(R.color.colorRed));
+                // As the user is blocked you can also delete user zeroClickToken in database
+                break;
+            default:
+                tvStatus.setText("Status: You don't have enough credit for this transaction");
+                tvStatus.setTextColor(getColor(R.color.colorRed));
+                break;
+        }
     }
 
 }

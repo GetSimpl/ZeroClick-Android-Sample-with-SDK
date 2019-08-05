@@ -1,6 +1,6 @@
 package com.simpl.pay.sample.zc.api;
 
-import com.simpl.pay.sample.zc.utils.Urls;
+import com.simpl.pay.sample.zc.utils.Urls_Test;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,7 +22,7 @@ public class ChargeTransactionAPI {
         String chargeJson = getChargeJson(amount, transactionToken);
         RequestBody chargeTransactionRequestbody = createRequestBody(chargeJson);
         Request chargeRequest = BaseApi.buildPOSTRequest(chargeTransactionRequestbody,
-                Urls.CHARGE_TRANSACTION_URL, mMerchantSecret);
+                Urls_Test.CHARGE_TRANSACTION_URL, mMerchantSecret);
 
         Response chargeTransactionResponse;
         try {
