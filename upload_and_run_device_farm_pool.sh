@@ -53,7 +53,7 @@ while true; do
         then
             echo "============= TESTS HAVE FAILED =============="
             exit 1
-        elif [ `echo $result | jq '.result'` == "\"PASSED\""]
+        elif [ `echo $result | jq '.result'` == "\"PASSED\"" ]
         then
             echo "============= TESTS HAVE PASSED ============"
             exit 0
