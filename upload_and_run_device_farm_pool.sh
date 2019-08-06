@@ -39,13 +39,13 @@ echo "============= UPLOAD APK ========================="
 curl -T app/build/outputs/apk/release/app-release-unsigned.apk "$(echo $appPreSignedUrl | sed -e 's/^"//' -e 's/"$//')"
 curl -T app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk "$(echo $testAppPreSignedUrl | sed -e 's/^"//' -e 's/"$//')"
 
-sleep 60s # Wating for the upload to completely process, if the upload is not processed, schedule run will return the "Missing or unprocessed resources". Upload processing is usually very quick.
+sleep 60s # Wating for the upload to completely process, if the upload is not processed, schedule run will return the "Missing or unprocessed resources". Upload processing is usually very quick. https://forums.aws.amazon.com/message.jspa?messageID=747302#747302
 echo "============= RUN TESTS =========================="
 runArn=`aws devicefarm schedule-run --project-arn $projectArn --app-arn $appUploadArn --device-pool-arn $devicePoolArn --name SDK_IMPLEMENTATION_TESTS --test type=INSTRUMENTATION,testPackageArn=$testAppUploadArn | jq '.run.arn'  | sed -e 's/^"//' -e 's/"$//'`
 
 while true; do
     result=`aws devicefarm get-run --arn $runArn | jq '.run'`
-    echo `echo $result`
+    echo `echo $result | jq '.result'`
     if [ `echo $result | jq '.status'` == "\"COMPLETED\"" ]
     then
         if [ `echo $result | jq '.result'` != "\"PASSED\"" ]
