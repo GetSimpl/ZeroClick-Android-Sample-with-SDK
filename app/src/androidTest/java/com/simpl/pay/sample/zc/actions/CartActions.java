@@ -14,7 +14,7 @@ import static java.lang.String.format;
 public class CartActions {
 
     public CartActions adjustCartItems (int amount) {
-        TestUtils.wait(2000);
+        TestUtils.wait(3000);
         int total = 20000;
 
         if (total > amount) {
@@ -34,7 +34,7 @@ public class CartActions {
 
 
         while (total < amount) {
-            TestUtils.wait(200);
+            TestUtils.wait(500);
             if (amount < 10000) {
                 onView(withId(R.id.bQty2Plus)).perform(click());
                 total += 500;
@@ -48,7 +48,7 @@ public class CartActions {
     }
 
     public void proceedToPayment() {
-        TestUtils.wait(1000);
+        TestUtils.wait(2000);
         onView(withId(R.id.bProceed)).perform(click());
     }
 }

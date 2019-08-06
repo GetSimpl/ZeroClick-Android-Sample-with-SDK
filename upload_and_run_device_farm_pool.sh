@@ -49,15 +49,19 @@ while true; do
     if [ `echo $result | jq '.status'` == "\"COMPLETED\"" ]
     then
         echo "Result: `echo $result | jq '.result'`"
-        if [ `echo $result | jq '.result'` != "\"PASSED\"" ]
+        if [ `echo $result | jq '.result'` == "\"FAILED\"" ]
         then
             echo "============= TESTS HAVE FAILED =============="
+            exit 1
+        elif [ `echo $result | jq '.result'` == "\"PASSED\""]
+        then
+            echo "============= TESTS HAVE PASSED ============"
+            exit 0
+        else
+            echo "============ TESTS HAVE STOPPED RUNNING =========="
             exit 1
         fi
     else
         sleep 120s # Waits for 2mins
     fi
 done
-
-echo "============= TESTS HAVE PASSED ================="
-exit 0

@@ -123,11 +123,11 @@ public class SimplZeroClickInstrumentedTest {
                 .clickVerifyOTP()
                 .clickLinkAccount();
 
-        TestUtils.wait(2000);
+        TestUtils.wait(4000);
         new WebviewActions()
                 .closeWebView();
 
-        TestUtils.wait(2000);
+        TestUtils.wait(4000);
         new PaymentActions()
                 .checkStatus(Status.NOT_ENOUGHT_CREDIT);
     }
@@ -166,11 +166,11 @@ public class SimplZeroClickInstrumentedTest {
                 .clickVerifyOTP()
                 .clickLinkAccount();
 
-        TestUtils.wait(2000);
+        TestUtils.wait(4000);
         new WebviewActions()
                 .closeWebView();
 
-        TestUtils.wait(2000);
+        TestUtils.wait(4000);
         new PaymentActions()
                 .checkStatus(Status.PENDING_BILL);
     }

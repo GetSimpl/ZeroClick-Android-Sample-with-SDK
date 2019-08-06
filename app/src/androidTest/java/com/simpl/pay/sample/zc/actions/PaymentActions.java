@@ -16,18 +16,18 @@ import static org.hamcrest.CoreMatchers.not;
 public class PaymentActions {
 
     public PaymentActions checkApprovalSuccess() {
-        TestUtils.wait(2000);
+        TestUtils.wait(3000);
         onView(withId(R.id.llSimplPay)).check(matches(isDisplayed()));
         return this;
     }
 
     public void checkApprovalFail() {
-        TestUtils.wait(2000);
+        TestUtils.wait(3000);
         onView(withId(R.id.llSimplPay)).check(matches(not(isDisplayed())));
     }
 
     public PaymentActions checkStatus(Status errEnum) {
-        TestUtils.wait(2000);
+        TestUtils.wait(3000);
         onView(withId(R.id.tvStatus)).check(matches(withText(getErrorStatus(errEnum))));
         return this;
     }
@@ -53,7 +53,7 @@ public class PaymentActions {
     }
 
     public void clickSimplButton() {
-        TestUtils.wait(1000);
+        TestUtils.wait(2000);
         onView(withId(R.id.llSimplPay)).perform(click());
     }
 

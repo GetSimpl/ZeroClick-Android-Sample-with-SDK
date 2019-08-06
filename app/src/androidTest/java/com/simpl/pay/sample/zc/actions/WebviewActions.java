@@ -20,7 +20,7 @@ public class WebviewActions {
     private String otp = "";
 
     public WebviewActions() {
-        TestUtils.wait(5000);
+        TestUtils.wait(6000);
     }
 
     public WebviewActions fetchVerificationId() {
@@ -50,21 +50,21 @@ public class WebviewActions {
 
 
     public WebviewActions clickVerifyOTP() {
-        TestUtils.wait(1000);
+        TestUtils.wait(2000);
         onWebView().perform(script("var e = new Event('touchstart');" +
                 "document.getElementById('submit-button').dispatchEvent(e);"));
         return this;
     }
 
     public void clickLinkAccount() {
-        TestUtils.wait(3000);
+        TestUtils.wait(4000);
         boolean placeOrderButtonStatus = (Boolean) onWebView().perform(script("return document.getElementById(\"submit-button\").disabled")).get().getValue();
         if (placeOrderButtonStatus) {
             onWebView().perform(script("var e = new Event('touchstart');" +
                     "document.getElementsByClassName('js-agree-button')[0].dispatchEvent(e);"));
         }
 
-        TestUtils.wait(2000);
+        TestUtils.wait(3000);
         onWebView().perform(script("var e = new Event('touchstart');" +
                 "document.getElementById('submit-button').dispatchEvent(e);"));
     }
