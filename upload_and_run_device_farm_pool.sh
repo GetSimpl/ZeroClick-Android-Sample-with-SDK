@@ -45,7 +45,7 @@ runArn=`aws devicefarm schedule-run --project-arn $projectArn --app-arn $appUplo
 
 while true; do
     result=`aws devicefarm get-run --arn $runArn | jq '.run'`
-    echo "Status: `result | jq '.status'`"
+    echo "Status: `$result | jq '.status'`"
     if [ `echo $result | jq '.status'` == "\"COMPLETED\"" ]
     then
         echo "Result: `$result | jq '.result'`"
