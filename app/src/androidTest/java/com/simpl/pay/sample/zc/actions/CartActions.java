@@ -14,12 +14,12 @@ import static java.lang.String.format;
 public class CartActions {
 
     public CartActions adjustCartItems (int amount) {
-        TestUtils.wait(3000);
+        TestUtils.wait(4000);
         int total = 20000;
 
         if (total > amount) {
             while (total > amount) {
-                TestUtils.wait(200);
+                TestUtils.wait(300);
                 if (amount < 10000) {
                     onView(withId(R.id.bQty2Minus)).perform(click());
                     total -= 500;
@@ -48,7 +48,7 @@ public class CartActions {
     }
 
     public void proceedToPayment() {
-        TestUtils.wait(2000);
+        TestUtils.wait(3000);
         onView(withId(R.id.bProceed)).perform(click());
     }
 }
