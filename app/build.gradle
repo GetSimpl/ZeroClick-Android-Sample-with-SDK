@@ -62,5 +62,5 @@ dependencies {
     if (System.getenv("ENV") != null)
         implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     else
-       implementation 'com.simpl.android:zeroClicksdk:1.0.25'
+       implementation 'com.simpl.android:zeroClicksdk:1.1.2'
 }

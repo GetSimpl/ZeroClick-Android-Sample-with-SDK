@@ -289,7 +289,9 @@ public class PaymentActivity extends AppCompatActivity {
         try {
             // If the Eligibility returns false, navigate to redirection URL.
             // This will allow user to pay his outstanding dues and on success callback, you can initiate the charge call on server.
-            if (responseObject.getString("redirect_url") != null && !responseObject.getString("redirect_url").equals("null"))
+			if (responseObject.getString("error_code").equals("zero_click_token_not_found"))
+				generateZCToken(email, phoneNo);
+            else if (responseObject.getString("redirect_url") != null && !responseObject.getString("redirect_url").equals("null"))
                 Simpl.getInstance().openRedirectionURL(PaymentActivity.this, responseObject.getString("redirect_url"),
                         new SimplUser(email, phoneNo)).execute(new SimplPaymentDueListener() {
                     @Override
@@ -304,8 +306,6 @@ public class PaymentActivity extends AppCompatActivity {
 
                     }
                 });
-            else if (responseObject.getString("error_code").equals("zero_click_token_not_found"))
-                generateZCToken(email, phoneNo);
 
             //update the UI.
             String error_code = responseObject.getString("error_code");
