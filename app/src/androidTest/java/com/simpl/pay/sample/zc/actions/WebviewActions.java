@@ -7,6 +7,7 @@ import org.json.JSONException;
 
 import java.io.IOException;
 
+import androidx.test.espresso.web.assertion.WebViewAssertions;
 import androidx.test.espresso.web.webdriver.DriverAtoms;
 import androidx.test.espresso.web.webdriver.Locator;
 
@@ -24,7 +25,8 @@ public class WebviewActions {
     }
 
     public WebviewActions fetchVerificationId() {
-        verification_id = onWebView().perform(script("return document.getElementById('verification_id').value"))
+    	TestUtils.wait(2000);
+        verification_id = onWebView().perform(script("return document.URL.split('?')[1].split('&')[0].split('=')[1]"))
                 .get().getValue().toString();
         return this;
     }
@@ -37,22 +39,26 @@ public class WebviewActions {
         } catch (JSONException e) {
             e.printStackTrace();
         } finally {
-            onWebView().withElement(findElement(Locator.ID, "otp")).perform(DriverAtoms.webKeys(otp));
+            onWebView().withElement(findElement(Locator.ID, "otp-input")).perform(DriverAtoms.webKeys(otp));
         }
         return this;
     }
 
     public WebviewActions verifyOtpFill() {
-        String otp = onWebView().perform(script("return document.getElementById('otp').value")).get().getValue().toString();
+        String otp = onWebView().perform(script("return document.getElementById('otp-input').value")).get().getValue().toString();
         assertEquals(this.otp, otp);
         return this;
     }
 
+    public WebviewActions clickVerifyNumber() {
+    	onWebView().perform(script("document.getElementById('link-btn').dispatchEvent(new Event('click'))"));
+    	return this;
+	}
+
 
     public WebviewActions clickVerifyOTP() {
-        TestUtils.wait(3000);
-        onWebView().perform(script("var e = new Event('touchstart');" +
-                "document.getElementById('submit-button').dispatchEvent(e);"));
+        onWebView().perform(script("document.getElementById('confirm-btn').dispatchEvent(new Event('click'))"));
+        TestUtils.wait(5000);
         return this;
     }
 

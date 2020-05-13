@@ -59,11 +59,11 @@ public class SimplZeroClickInstrumentedTest {
                 .clickSimplButton();
 
         new WebviewActions()
+				.clickVerifyNumber()
                 .fetchVerificationId()
                 .fillOTP()
                 .verifyOtpFill()
-                .clickVerifyOTP()
-                .clickLinkAccount();
+                .clickVerifyOTP();
 
         new SuccessActions().clickOk();
     }
@@ -116,16 +116,12 @@ public class SimplZeroClickInstrumentedTest {
                 .checkApprovalSuccess()
                 .clickSimplButton();
 
-        new WebviewActions()
-                .fetchVerificationId()
-                .fillOTP()
-                .verifyOtpFill()
-                .clickVerifyOTP()
-                .clickLinkAccount();
-
-        TestUtils.wait(4000);
-        new WebviewActions()
-                .closeWebView();
+		new WebviewActions()
+			.clickVerifyNumber()
+			.fetchVerificationId()
+			.fillOTP()
+			.verifyOtpFill()
+			.clickVerifyOTP();
 
         TestUtils.wait(4000);
         new PaymentActions()
@@ -159,16 +155,12 @@ public class SimplZeroClickInstrumentedTest {
                 .checkApprovalSuccess()
                 .clickSimplButton();
 
-        new WebviewActions()
-                .fetchVerificationId()
-                .fillOTP()
-                .verifyOtpFill()
-                .clickVerifyOTP()
-                .clickLinkAccount();
-
-        TestUtils.wait(4000);
-        new WebviewActions()
-                .closeWebView();
+		new WebviewActions()
+			.clickVerifyNumber()
+			.fetchVerificationId()
+			.fillOTP()
+			.verifyOtpFill()
+			.clickVerifyOTP();
 
         TestUtils.wait(4000);
         new PaymentActions()
