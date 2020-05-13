@@ -91,7 +91,7 @@ public class NetworkHelper {
         Response response = executeRequest(request);
         JSONObject responseObject = new JSONObject(response.body().string());
         JSONObject data = responseObject.getJSONObject("data");
-        return data.getString("otp");
+        return data.getString("otp_code");
     }
 
 
